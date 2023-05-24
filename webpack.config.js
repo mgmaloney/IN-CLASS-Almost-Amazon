@@ -22,7 +22,7 @@ module.exports = {
     new webpack.DefinePlugin( {
       'process.env': JSON.stringify(process.env || dotenv.parsed),
     }),
-    new ESLintPlugin()
+    // new ESLintPlugin()
   ],
   module: {
     rules: [
