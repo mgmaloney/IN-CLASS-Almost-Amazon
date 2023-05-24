@@ -10,6 +10,7 @@ const selectAuthor = (authorId) => {
     authorsArray.forEach((author) => {
       domString += `
           <option 
+            id="authorFBKey"
             value="${author.firebaseKey}" 
             ${authorId === author.firebaseKey ? 'selected' : ''}>
               ${author.first_name} ${author.last_name}
