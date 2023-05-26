@@ -98,9 +98,8 @@ const booksOnSale = () =>
 // TODO: STRETCH...SEARCH BOOKS
 
 // const searchBooks = async () => {
-//   const books = await getBooks()
-
-// }
+//   const books = await getBooks();
+// };
 
 export {
   getBooks,

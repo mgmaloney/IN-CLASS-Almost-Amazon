@@ -1,6 +1,10 @@
 // for merged promises
-import { getSingleBook } from './bookData';
-import { getSingleAuthor } from './authorData';
+import { getSingleBook, deleteBook } from './bookData';
+import {
+  getSingleAuthor,
+  getAuthorBooks,
+  deleteSingleAuthor,
+} from './authorData';
 
 const getBookDetails = async (firebaseKey) => {
   const bookObject = await getSingleBook(firebaseKey);
@@ -8,4 +12,19 @@ const getBookDetails = async (firebaseKey) => {
   return { ...bookObject, authorObject };
 };
 
-export default getBookDetails;
+const deleteAuthorBooksRelationship = (firebaseKey) =>
+  new Promise((resolve, reject) => {
+    getAuthorBooks(firebaseKey)
+      .then((authorBooksArr) => {
+        const deleteBookPromises = authorBooksArr.map((book) =>
+          deleteBook(book.firebaseKey)
+        );
+
+        deleteBookPromises.all(deleteBookPromises).then(() => {
+          deleteSingleAuthor(firebaseKey).then(resolve);
+        });
+      })
+      .then(reject);
+  });
+
+export { getBookDetails, deleteAuthorBooksRelationship };

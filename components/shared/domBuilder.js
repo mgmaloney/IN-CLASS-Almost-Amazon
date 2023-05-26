@@ -4,10 +4,11 @@ const domBuilder = () => {
   const domString = `
   <div id="navigation"></div>
   <div id="main-container">
+    <div id="view-author"></div>
     <div id="add-button"></div>
+    <div id="author-books"</div>
     <div id="form-container"></div>
     <div id="store"></div>
-    <div id="view-author"></div>
     <div id="view"></div>
   </div>`;
 
