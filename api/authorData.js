@@ -89,15 +89,12 @@ const updateAuthor = (payload) =>
 // TODO: GET A SINGLE AUTHOR'S BOOKS
 const getAuthorBooks = async (authorFBKey) => {
   const books = await getBooks();
-  console.warn(books);
   const authorsBooks = [];
   books.forEach((book) => {
     if (book.author_id === authorFBKey) {
-      console.warn(book);
       authorsBooks.push(book);
     }
   });
-  console.warn(authorsBooks);
   return authorsBooks;
 };
 

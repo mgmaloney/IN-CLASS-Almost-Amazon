@@ -1,13 +1,22 @@
 import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
-import { getSingleAuthor, getAuthorBooks } from '../api/authorData';
+import { getSingleAuthor } from '../api/authorData';
 
-const showAuthorsBooks = (array) => {
+const showAuthorsBooks = async (array) => {
   clearDom();
+  const author = await getSingleAuthor(array[0].author_id);
+  console.warn(author);
 
   const btnString =
     '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add A Book</button>';
   renderToDOM('#add-button', btnString);
+
+  const authorHeaderElement = `
+  <h2>${author.first_name} ${author.last_name}</h2>
+  <h2>Email: ${author.email}</h2>
+  <h2 id="book-header">Books:<h2>
+  `;
+  renderToDOM('#view-author', authorHeaderElement);
 
   let domString = '';
   array.forEach((item) => {
