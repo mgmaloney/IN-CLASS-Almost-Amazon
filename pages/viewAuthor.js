@@ -11,6 +11,10 @@ const showAuthorsBooks = async (array) => {
     '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add A Book</button>';
   renderToDOM('#add-button', btnString);
 
+  const authorBtnString =
+    '<button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>';
+  renderToDOM('#add-button', btnString);
+
   const authorHeaderElement = `
   <h2>${author.first_name} ${author.last_name}</h2>
   <h2>Email: ${author.email}</h2>

@@ -4,9 +4,9 @@ import client from '../utils/client';
 const endpoint = client.databaseURL;
 
 // TODO: GET BOOKS
-const getBooks = () =>
+const getBooks = (uid) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books.json`, {
+    fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const getSingleBook = (bookFBKey) =>
 // TODO: CREATE BOOK
 const createBook = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books.json`, {
+    fetch(`${endpoint}/books.json"`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,14 +82,17 @@ const updateBook = (payload) =>
   });
 
 // TODO: FILTER BOOKS ON SALE
-const booksOnSale = () =>
+const booksOnSale = (uid) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books.json?orderBy="sale"&equalTo=true`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    fetch(
+      `${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"&sale"&equalTo=true`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => resolve(Object.values(data)))
       .catch(reject);

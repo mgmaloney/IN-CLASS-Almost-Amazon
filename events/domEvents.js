@@ -12,7 +12,7 @@ import addAuthorForm from '../components/forms/addAuthorForm';
 import viewBook from '../pages/viewBook';
 import showAuthorsBooks from '../pages/viewAuthor';
 
-const domEvents = () => {
+const domEvents = (user) => {
   document
     .querySelector('#main-container')
     .addEventListener('click', async (e) => {
@@ -24,7 +24,7 @@ const domEvents = () => {
           console.warn(e.target.id.split('--'));
           const [, firebaseKey] = e.target.id.split('--');
           deleteBook(firebaseKey).then(() => {
-            getBooks().then(showBooks);
+            getBooks(`${user.uid}`).then(showBooks);
           });
         }
       }
@@ -67,7 +67,7 @@ const domEvents = () => {
           console.warn(e.target.id.split('--'));
           const [, firebaseKey] = e.target.id.split('--');
           deleteAuthorBooksRelationship(firebaseKey).then(() => {
-            getAuthors().then(showAuthors);
+            getAuthors(`${user.uid}`).then(showAuthors);
           });
         }
       }

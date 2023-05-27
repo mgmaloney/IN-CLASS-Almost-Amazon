@@ -3,7 +3,7 @@ import { createAuthor, getAuthors, updateAuthor } from '../api/authorData';
 import { showBooks } from '../pages/books';
 import { showAuthors } from '../pages/authors';
 
-const formEvents = () => {
+const formEvents = (user) => {
   document
     .querySelector('#main-container')
     .addEventListener('submit', async (e) => {
@@ -24,7 +24,7 @@ const formEvents = () => {
         createBook(newBookPayload).then(({ name }) => {
           const patchPayload = { firebaseKey: name };
           updateBook(patchPayload).then(() => {
-            getBooks().then(showBooks);
+            getBooks(`${user.uid}`).then(showBooks);
           });
         });
       }
@@ -42,10 +42,10 @@ const formEvents = () => {
           image: document.getElementById('image').value,
           price: document.getElementById('price').value,
           sale: document.getElementById('sale').checked,
-          uid: '',
+          uid: `${user.id}`,
         };
         updateBook(updateBookPayload).then(() => {
-          getBooks().then(showBooks);
+          getBooks(`${user.uid}`).then(showBooks);
         });
       }
 
@@ -60,7 +60,7 @@ const formEvents = () => {
         createAuthor(newAuthor).then(({ name }) => {
           const patchPayload = { firebase: name };
           updateAuthor(patchPayload).then(() => {
-            getAuthors().then(showAuthors);
+            getAuthors(`${user.uid}`).then(showAuthors);
           });
         });
       }
@@ -76,7 +76,7 @@ const formEvents = () => {
           last_name: document.getElementById('last_name').value,
         };
         updateAuthor(updateAuthorPayload).then(() => {
-          getAuthors().then(showAuthors);
+          getAuthors(`${user.uid}`).then(showAuthors);
         });
       }
     });
