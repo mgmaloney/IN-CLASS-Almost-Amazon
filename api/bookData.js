@@ -54,7 +54,7 @@ const getSingleBook = (bookFBKey) =>
 // TODO: CREATE BOOK
 const createBook = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books.json"`, {
+    fetch(`${endpoint}/books.json`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

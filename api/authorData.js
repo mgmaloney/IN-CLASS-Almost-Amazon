@@ -25,7 +25,7 @@ const getAuthors = (uid) =>
 // FIXME: CREATE AUTHOR
 const createAuthor = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo=${payload.uid}`, {
+    fetch(`${endpoint}/authors.json`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const deleteSingleAuthor = (firebaseKey) =>
 // FIXME: UPDATE AUTHOR
 const updateAuthor = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/authors/${payload.firebaseKey}.json`, {
+    fetch(`${endpoint}/authors/${payload.firebase}.json`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

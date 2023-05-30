@@ -1,23 +1,33 @@
 import { signOut } from '../utils/auth';
 import { getBooks, booksOnSale } from '../api/bookData';
-import { showBooks } from '../pages/books';
+import { showBooks, emptyBooks } from '../pages/books';
 import { getAuthors } from '../api/authorData';
 import { showAuthors, emptyAuthors } from '../pages/authors';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (user) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button').addEventListener('click', signOut);
   // TODO: BOOKS ON SALE
-  document.querySelector('#sale-books').addEventListener('click', () => {
+  document.querySelector('#sale-books').addEventListener('click', async () => {
     console.warn('CLICKED SALE BOOKS');
-    booksOnSale().then(showBooks);
+    const saleBooks = await booksOnSale();
+    if (saleBooks.length > 0) {
+      showBooks(saleBooks);
+    } else {
+      emptyBooks();
+    }
   });
 
   // TODO: ALL BOOKS
-  document.querySelector('#all-books').addEventListener('click', () => {
+  document.querySelector('#all-books').addEventListener('click', async () => {
     console.warn('CLICKED ALL BOOKS');
-    getBooks().then(showBooks);
+    const books = await getBooks(`${user.uid}`);
+    if (books.length > 0) {
+      getBooks(`${user.uid}`).then(showBooks);
+    } else {
+      emptyBooks();
+    }
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
@@ -26,9 +36,9 @@ const navigationEvents = () => {
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', async () => {
     console.warn('CLICKED AUTHORS');
-    const authors = await getAuthors();
+    const authors = await getAuthors(`${user.uid}`);
     if (authors.length > 0) {
-      getAuthors().then(showAuthors);
+      getAuthors(`${user.uid}`).then(showAuthors);
     } else {
       emptyAuthors();
     }
