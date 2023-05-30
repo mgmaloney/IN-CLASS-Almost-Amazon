@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+import 'firebase/auth';
 import client from '../utils/client';
 import { getBooks } from './bookData';
 
@@ -88,7 +90,7 @@ const updateAuthor = (payload) =>
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS
 const getAuthorBooks = async (authorFBKey) => {
-  const books = await getBooks();
+  const books = await getBooks(`${firebase.auth().currentUser.uid}`);
   const authorsBooks = [];
   books.forEach((book) => {
     if (book.author_id === authorFBKey) {
