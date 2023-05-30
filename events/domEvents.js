@@ -55,6 +55,7 @@ const domEvents = (user) => {
       if (e.target.id.includes('view-author-btn')) {
         console.warn('VIEW AUTHOR');
         const [, firebaseKey] = e.target.id.split('--');
+        console.warn(firebaseKey);
         const authorsBooks = await getAuthorBooks(firebaseKey);
         showAuthorsBooks(authorsBooks);
       }
