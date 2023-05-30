@@ -4,8 +4,8 @@ import { getSingleAuthor } from '../api/authorData';
 
 const showAuthorsBooks = async (array) => {
   clearDom();
+  console.warn(array);
   const author = await getSingleAuthor(array[0].author_id);
-  console.warn(author);
 
   const btnString =
     '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add A Book</button>';

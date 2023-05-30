@@ -3,6 +3,7 @@ import { getBooks, booksOnSale } from '../api/bookData';
 import { showBooks, emptyBooks } from '../pages/books';
 import { getAuthors } from '../api/authorData';
 import { showAuthors, emptyAuthors } from '../pages/authors';
+import clearDom from '../utils/clearDom';
 
 // navigation events
 const navigationEvents = (user) => {
@@ -36,6 +37,7 @@ const navigationEvents = (user) => {
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', async () => {
     console.warn('CLICKED AUTHORS');
+    clearDom();
     const authors = await getAuthors(`${user.uid}`);
     if (authors.length > 0) {
       getAuthors(`${user.uid}`).then(showAuthors);
