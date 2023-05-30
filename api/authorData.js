@@ -4,9 +4,9 @@ import { getBooks } from './bookData';
 const endpoint = client.databaseURL;
 
 // FIXME:  GET ALL AUTHORS
-const getAuthors = () =>
+const getAuthors = (uid) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/authors.json`, {
+    fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo="${uid}"`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -23,14 +23,14 @@ const getAuthors = () =>
       .catch(reject);
   });
 // FIXME: CREATE AUTHOR
-const createAuthor = (authorObj) =>
+const createAuthor = (payload) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/authors.json`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(authorObj),
+      body: JSON.stringify(payload),
     })
       .then((response) => response.json())
       .then((data) => resolve(data))
@@ -58,9 +58,9 @@ const getSingleAuthor = (authorFBKey) =>
   });
 
 // FIXME: DELETE AUTHOR
-const deleteSingleAuthor = (authorFirebaseId) =>
+const deleteSingleAuthor = (firebaseKey) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/authors/${authorFirebaseId}.json`, {
+    fetch(`${endpoint}/authors/${firebaseKey}.json`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const deleteSingleAuthor = (authorFirebaseId) =>
 // FIXME: UPDATE AUTHOR
 const updateAuthor = (payload) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/authors/${payload.firebaseKey}.json`, {
+    fetch(`${endpoint}/authors/${payload.firebase}.json`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
