@@ -57,7 +57,7 @@ const domEvents = (user) => {
         const [, firebaseKey] = e.target.id.split('--');
         console.warn(firebaseKey);
         const authorsBooks = await getAuthorBooks(firebaseKey);
-        showAuthorsBooks(authorsBooks);
+        showAuthorsBooks(firebaseKey, authorsBooks);
       }
 
       // FIXME: ADD CLICK EVENT FOR DELETING AN AUTHOR
