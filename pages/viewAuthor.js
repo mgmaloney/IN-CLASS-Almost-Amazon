@@ -1,30 +1,33 @@
 import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 import { getSingleAuthor } from '../api/authorData';
+import { emptyBooks } from './books';
 
-const showAuthorsBooks = async (array) => {
+const showAuthorsBooks = async (firebaseKey, array) => {
   clearDom();
-  console.warn(array);
-  const author = await getSingleAuthor(array[0].author_id);
 
-  const btnString =
-    '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add A Book</button>';
-  renderToDOM('#add-button', btnString);
-
+  const author = await getSingleAuthor(firebaseKey);
   const authorHeaderElement = `
-  <h2>${author.first_name} ${author.last_name}</h2>
-  <h2>Email: ${author.email}</h2>
-  <h2 id="book-header">Books:<h2>
+    <h2>${author.first_name} ${author.last_name}</h2>
+    <h2>Email: ${author.email}</h2>
+    <h2 id="book-header">Books:</h2>
   `;
   renderToDOM('#view-author', authorHeaderElement);
 
-  let domString = '';
-  array.forEach((item) => {
-    domString += `
+  if (array.length < 1) {
+    emptyBooks();
+  } else {
+    const btnString =
+      '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add A Book</button>';
+    renderToDOM('#add-button', btnString);
+
+    let domString = '';
+    array.forEach((item) => {
+      domString += `
         <div class="card">
           <img class="card-img-top" src=${item.image} alt=${
-      item.title
-    } style="height: 400px;">
+        item.title
+      } style="height: 400px;">
           <div class="card-body" style="height: 180px;">
             <h5 class="card-title">${item.title}</h5>
               <p class="card-text bold">${
@@ -44,8 +47,9 @@ const showAuthorsBooks = async (array) => {
               }" class="btn btn-danger fas fa-trash-alt"></i>
           </div>
         </div>`;
-  });
-  renderToDOM('#store', domString);
+    });
+    renderToDOM('#store', domString);
+  }
 };
 
 export default showAuthorsBooks;

@@ -2,6 +2,7 @@ import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 
 const emptyAuthors = () => {
+  clearDom();
   const domString = `
     <h1>No Authors</h1>
     <button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>
