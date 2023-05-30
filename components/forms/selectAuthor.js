@@ -10,10 +10,11 @@ const selectAuthor = (authorId) => {
   getAuthors(`${firebase.auth().currentUser.uid}`).then((authorsArray) => {
     console.warn(authorsArray);
     authorsArray.forEach((author) => {
+      console.warn(author);
       domString += `
           <option 
             id="authorFBKey"
-            value="${author.firebaseKey}" 
+            value="${author.firebase}" 
             ${authorId === author.firebaseKey ? 'selected' : ''}>
               ${author.first_name} ${author.last_name}
           </option>`;
