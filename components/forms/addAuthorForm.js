@@ -5,7 +5,7 @@ const addAuthorForm = (obj = {}) => {
   clearDom();
   const domString = `
     <form id="${
-      obj.firebaseKey ? `update-author--${obj.firebaseKey}` : 'submit-author'
+      obj.firebase ? `update-author--${obj.firebase}` : 'submit-author'
     }" class="mb-4">
       <div class="form-group">
         <label for="image">First Name</label>
