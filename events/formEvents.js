@@ -56,6 +56,7 @@ const formEvents = (user) => {
           email: document.getElementById('email').value,
           first_name: document.getElementById('first_name').value,
           last_name: document.getElementById('last_name').value,
+          favorite: document.getElementById('favorite').checked,
           uid: `${user.uid}`,
         };
         createAuthor(newAuthor).then(({ name }) => {
@@ -72,12 +73,13 @@ const formEvents = (user) => {
         console.warn('CLICKED UPDATE AUTHOR', e.target.id);
         console.warn(firebaseKey);
         const updateAuthorPayload = {
-          firebaseKey,
+          firebase: firebaseKey,
           email: document.getElementById('email').value,
           first_name: document.getElementById('first_name').value,
           last_name: document.getElementById('last_name').value,
           favorite: document.getElementById('favorite').checked,
         };
+        console.warn(updateAuthorPayload);
         updateAuthor(updateAuthorPayload).then(() => {
           getAuthors(`${user.uid}`).then(showAuthors);
         });

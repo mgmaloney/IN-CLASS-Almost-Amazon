@@ -9,7 +9,8 @@ import { showBooks, emptyBooks } from '../pages/books';
 
 const startApp = (user) => {
   domBuilder(user); // BUILD THE DOM
-  domEvents(user); // ADD THE EVENT LISTENTERS TO THE DOM
+  domEvents(user);
+  // starEvent(user); // ADD THE EVENT LISTENTERS TO THE DOM
   formEvents(user); // ADD FORM EVENT LISTENTERS TO THE DOM
   navBar(); // DYNAMICALLY ADD THE NAV
   logoutButton(); // ADD THE LOGOUT BUTTON COMPONENT

@@ -1,6 +1,11 @@
 import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
 import { showBooks } from '../pages/books';
-import { getAuthors, getSingleAuthor, getAuthorBooks } from '../api/authorData';
+import {
+  getAuthors,
+  getSingleAuthor,
+  getAuthorBooks,
+  updateAuthor,
+} from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import {
   getBookDetails,
@@ -84,7 +89,44 @@ const domEvents = (user) => {
         const [, firebaseKey] = e.target.id.split('--');
         addAuthorForm(await getSingleAuthor(firebaseKey));
       }
+      if (e.target.id.includes('star-button')) {
+        console.warn('STAR AUTHOR');
+        const [, firebaseKey] = e.target.id.split('--');
+        const authorObject = await getSingleAuthor(firebaseKey);
+        const favoriteAuthorPayload = {
+          firebase: authorObject.firebase,
+        };
+        if (authorObject.favorite === true) {
+          favoriteAuthorPayload.favorite = false;
+          updateAuthor(favoriteAuthorPayload);
+          getAuthors(`${user.uid}`).then(showAuthors);
+        }
+        favoriteAuthorPayload.favorite = true;
+        updateAuthor(favoriteAuthorPayload);
+        getAuthors(`${user.uid}`).then(showAuthors);
+      }
     });
 };
 
-export default domEvents;
+// const starEvent = (user) => {
+//   document.querySelector('#store').addEventListener('click', async (e) => {
+//     if (e.target.id.includes('star-button')) {
+//       console.warn('STAR AUTHOR');
+//       const [, firebaseKey] = e.target.id.split('--');
+//       const authorObject = await getSingleAuthor(firebaseKey);
+//       const favoriteAuthorPayload = {
+//         firebase: authorObject.firebase,
+//       };
+//       if (authorObject.favorite === true) {
+//         favoriteAuthorPayload.favorite = false;
+//         updateAuthor(favoriteAuthorPayload);
+//         getAuthors(`${user.uid}`).then(showAuthors);
+//       }
+//       favoriteAuthorPayload.favorite = true;
+//       updateAuthor(favoriteAuthorPayload);
+//       getAuthors(`${user.uid}`).then(showAuthors);
+//     }
+//   });
+// };
+
+export default domEvents
